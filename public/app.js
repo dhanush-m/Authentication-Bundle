@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     loginBtn.addEventListener('click', () => {
-        window.location.href = 'https://<app-name>.herokuapp.com/login';
+        window.location.href = 'https://stingray-app-cymb8.ondigitalocean.app/login';
     });
 
     getTokenBtn.addEventListener('click', () => {

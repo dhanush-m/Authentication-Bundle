@@ -12,7 +12,8 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/login', (req, res) => {
-  const authUrl = `${process.env.AUTH_URL}?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}`;
+  const authUrl = `${process.env.AUTH_URL}?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=${encodeURIComponent(process.env.REDIRECT_URI)}`;
+  console.log('Authorization URL:', authUrl);
   res.redirect(authUrl);
 });
 
@@ -38,6 +39,14 @@ app.get('/oauth2/callback', async (req, res) => {
 app.get('/logout', (req, res) => {
   // Clear any stored tokens or sessions here
   res.redirect('/');
+});
+
+app.get('/debug-env', (req, res) => {
+  res.json({
+    REDIRECT_URI: process.env.REDIRECT_URI,
+    AUTH_URL: process.env.AUTH_URL,
+    CLIENT_ID: process.env.CLIENT_ID
+  });
 });
 
 app.listen(port, () => {
